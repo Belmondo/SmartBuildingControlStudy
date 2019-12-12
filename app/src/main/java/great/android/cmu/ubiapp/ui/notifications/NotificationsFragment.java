@@ -21,13 +21,11 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import great.android.cmu.ubiapp.R;
-import great.android.cmu.ubiapp.helpers.DeviceActionMessage;
+import great.android.cmu.ubiapp.model.DeviceActionMessage;
 import great.android.cmu.ubiapp.helpers.Utils;
 
 import static great.android.cmu.ubiapp.keywords.keywords.RAIO_DIGITADO;

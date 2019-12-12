@@ -1,9 +1,11 @@
 /**
  * 
  */
-package great.android.cmu.ubiapp.helpers;
+package great.android.cmu.ubiapp.model;
 
 import java.util.List;
+
+import great.android.cmu.ubiapp.model.DeviceAction;
 
 /**
  * @author PedroAlmir

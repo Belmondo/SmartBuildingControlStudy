@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import great.android.cmu.ubiapp.model.DeviceAction;
+import great.android.cmu.ubiapp.model.DeviceActionMessage;
 
 
 public class Utils {

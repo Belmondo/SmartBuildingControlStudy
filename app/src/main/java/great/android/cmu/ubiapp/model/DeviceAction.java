@@ -1,7 +1,7 @@
 /**
  * 
  */
-package great.android.cmu.ubiapp.helpers;
+package great.android.cmu.ubiapp.model;
 
 /**
  * @author PedroAlmir
