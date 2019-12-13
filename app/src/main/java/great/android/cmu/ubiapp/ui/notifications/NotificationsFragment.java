@@ -36,6 +36,8 @@ public class NotificationsFragment extends Fragment {
     private NotificationsViewModel notificationsViewModel;
     Switch switchFiltros;
 
+    Switch switchCoap;
+
     TextView tvRaio;
     TextView tvMensagem;
     EditText etRaio;
@@ -46,6 +48,7 @@ public class NotificationsFragment extends Fragment {
 
 
     boolean switchState = false;
+    boolean switchCoapState = false;
     static SharedPreferences sharedPrefs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,6 +57,7 @@ public class NotificationsFragment extends Fragment {
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         switchFiltros = (Switch) root.findViewById(R.id.switchFiltro);
+        switchCoap = (Switch) root.findViewById(R.id.switchCoap);
         tvRaio = (TextView) root.findViewById(R.id.textView2);
         tvMensagem = (TextView) root.findViewById(R.id.textView4);
         etRaio = (EditText) root.findViewById(R.id.editTextRaio);
@@ -96,6 +100,23 @@ public class NotificationsFragment extends Fragment {
                     tvMensagem.setVisibility(View.INVISIBLE);
                     etRaio.setVisibility(View.INVISIBLE);
                     sharedPrefs.edit().putBoolean(SWITCH_STATE, false).commit();
+                }
+            }
+        });
+
+
+
+
+
+        switchCoap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
+                if(isChecked) {
+                    //do stuff when Switch is ON
+                    Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
+                } else {
+
                 }
             }
         });
@@ -182,7 +203,7 @@ public class NotificationsFragment extends Fragment {
         @Override
         protected void onPostExecute(Long elapsedTime) {
             super.onPostExecute(elapsedTime);
-            Toast.makeText(getActivity(), elapsedTime.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "elapsed time " + elapsedTime.toString(), Toast.LENGTH_LONG).show();
             System.out.println("Elapsed Time: " + elapsedTime);
         }
     }
