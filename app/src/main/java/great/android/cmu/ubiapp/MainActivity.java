@@ -21,10 +21,12 @@ import androidx.navigation.ui.NavigationUI;
 import great.android.cmu.ubiapp.model.Device;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Device> devices;
     private Date lastDeviceUpdade;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
