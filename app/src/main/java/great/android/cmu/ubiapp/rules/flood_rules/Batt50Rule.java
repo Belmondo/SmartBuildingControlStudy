@@ -1,5 +1,7 @@
 package great.android.cmu.ubiapp.rules.flood_rules;
 
+import android.content.Context;
+
 import evaluators.Assignment;
 import evaluators.EvaluationException;
 import evaluators.Filter;
@@ -8,9 +10,14 @@ import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 
 public class Batt50Rule extends Filter {
 
-    Batt50Adapt batt50Adapt = new Batt50Adapt();
+    Batt50Adapt batt50Adapt;
 
     static int batteryLevel = 0;
+
+    public Batt50Rule (Context context){
+        batt50Adapt  = new Batt50Adapt(context);
+    }
+
     @Override
     public boolean filter(Assignment assignment) throws EvaluationException {
         return false;

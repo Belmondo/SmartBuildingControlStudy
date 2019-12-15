@@ -1,5 +1,7 @@
 package great.android.cmu.ubiapp.rules.flood_rules;
 
+import android.content.Context;
+
 import evaluators.Assignment;
 import evaluators.EvaluationException;
 import evaluators.Filter;
@@ -9,7 +11,11 @@ import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 public class Temp30Rule extends Filter {
 
     float detectedTemperature;
-    Temp30Adapt temp30Adapt = new Temp30Adapt();
+    Temp30Adapt temp30Adapt;
+
+    public Temp30Rule(Context context){
+        temp30Adapt = new Temp30Adapt(context);
+    }
     @Override
     public boolean filter(Assignment assignment) throws EvaluationException {
         return false;

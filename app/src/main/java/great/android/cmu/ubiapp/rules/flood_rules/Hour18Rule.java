@@ -1,5 +1,7 @@
 package great.android.cmu.ubiapp.rules.flood_rules;
 
+import android.content.Context;
+
 import evaluators.Assignment;
 import evaluators.EvaluationException;
 import evaluators.Filter;
@@ -9,7 +11,11 @@ import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 public class Hour18Rule extends Filter {
 
     int currentHourIn24Format = 0;
-    Hour18Adapt hour18Adapt = new Hour18Adapt();
+    Hour18Adapt hour18Adapt;
+
+    public Hour18Rule (Context context){
+        hour18Adapt = new Hour18Adapt(context);
+    }
 
     @Override
     public boolean filter(Assignment assignment) throws EvaluationException {
