@@ -1,8 +1,18 @@
 package great.android.cmu.ubiapp.adaptations;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import great.android.cmu.ubiapp.external.External_Processment;
 import task.Task2;
 
 public class Batt50Adapt extends Task2 {
+
+    Context received_context;
+
+    public Batt50Adapt (Context context){
+        received_context = context;
+    }
 
 
     @Override
@@ -16,6 +26,7 @@ public class Batt50Adapt extends Task2 {
 
     @Override
     public void executar() {
+        Toast.makeText(received_context, "Nível de bateria baixo", Toast.LENGTH_LONG).show();
     }
 
     @Override

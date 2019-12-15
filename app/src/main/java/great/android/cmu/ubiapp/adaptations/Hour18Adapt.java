@@ -1,8 +1,18 @@
 package great.android.cmu.ubiapp.adaptations;
 
+import android.content.Context;
+
+import great.android.cmu.ubiapp.external.External_Processment;
 import task.Task2;
 
 public class Hour18Adapt extends Task2 {
+
+    Context received_context;
+
+    public Hour18Adapt (Context context){
+        received_context = context;
+    }
+
     @Override
     public void recebeToken(Object o) {
 
@@ -15,7 +25,7 @@ public class Hour18Adapt extends Task2 {
 
     @Override
     public void executar() {
-
+        External_Processment.turnOnTheLights(received_context);
     }
 
     @Override

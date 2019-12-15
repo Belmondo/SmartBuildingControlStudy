@@ -1,8 +1,18 @@
 package great.android.cmu.ubiapp.adaptations;
 
+import android.content.Context;
+
+import great.android.cmu.ubiapp.external.External_Processment;
 import task.Task2;
 
 public class Temp14Adapt extends Task2 {
+
+    Context received_context;
+
+    public Temp14Adapt (Context context){
+        received_context = context;
+    }
+
     @Override
     public void recebeToken(Object o) {
 
@@ -15,6 +25,7 @@ public class Temp14Adapt extends Task2 {
 
     @Override
     public void executar() {
+        External_Processment.turnOffTheAir(received_context);
 
     }
 
