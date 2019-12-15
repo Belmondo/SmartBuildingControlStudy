@@ -13,20 +13,16 @@ public class CalculateMetrics {
     static ArrayList<Long> TaTimes = new ArrayList();
     static ArrayList<Long> GeneralWatTimes = new ArrayList();
 
+    static int numberOfRulesVerified = 0;
 
 
     public static void calculateSingleWat(String adaptationName, Long WorkingTime, Long AdaptivityTime){
-
-
         System.out.println("Name of Adaptation: " + adaptationName + " the WAT calculus = " + (WorkingTime/AdaptivityTime));
         Log.d("WAT", "Name of Adaptation: " + adaptationName + " the WAT calculus = " + (WorkingTime/AdaptivityTime));
-
-
 
     }
 
     public static void calculateSingleWat(Context context,String adaptationName, Long WorkingTime, Long AdaptivityTime){
-
 
         Toast.makeText(context,"Name of Adaptation: " + adaptationName + " the WAT calculus = " + (WorkingTime/AdaptivityTime), Toast.LENGTH_LONG).show();
         System.out.println("Name of Adaptation: " + adaptationName + " the WAT calculus = " + (WorkingTime/AdaptivityTime));
@@ -110,4 +106,14 @@ public class CalculateMetrics {
         Log.d("GENERAL TA", "General TA Calculated: " + GeneralTAVariable );
 
     }
+
+    public static void setNumberOfRulesVerified(){
+        numberOfRulesVerified ++;
+    }
+
+    public int getNumberOfRulesVerified(){
+        return this.numberOfRulesVerified;
+    }
+
+
 }
