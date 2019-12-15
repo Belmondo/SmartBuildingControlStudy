@@ -7,6 +7,10 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +18,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import great.android.cmu.ubiapp.model.Device;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private ArrayList<Device> devices;
+    private Date lastDeviceUpdade;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -39,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public List<Device> getDevices(){
+        return this.devices;
+    }
 
+    public void setDevices(ArrayList<Device> devices){
+        this.devices = devices;
+    }
 
+    public Date getLastDeviceUpdade() {
+        return lastDeviceUpdade;
+    }
+
+    public void setLastDeviceUpdade(Date lastDeviceUpdade) {
+        this.lastDeviceUpdade = lastDeviceUpdade;
+    }
 }

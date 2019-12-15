@@ -22,36 +22,31 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:text="Não desejo utilizar o CoAP"
+        android:text="Do not use COAP-CTX"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/switchFiltro"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Switch
         android:id="@+id/switchCoap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/switchFiltro" />
 
     <Switch
         android:id="@+id/switchFiltro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
 
@@ -61,50 +56,50 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:text="Desejo Aplicar Filtros"
+        android:text="Apply distance filter"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/switchFiltro"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="343dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Caso não seja escolhido nenhum raio, a escolha contextual será default"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="If no radius is chosen, the contextual choice will be 10 meters"
         android:textAlignment="center"
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRaio" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="76dp"
-        android:text="Raio (em Metros): "
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Radius (in meters): "
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/editTextRaio"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/editTextRaio"
         android:layout_width="88dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="numberSigned"
         android:textSize="24sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/switchCoap" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
