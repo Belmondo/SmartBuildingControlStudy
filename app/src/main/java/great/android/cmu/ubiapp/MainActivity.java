@@ -18,14 +18,33 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import great.android.cmu.ubiapp.adaptations.Batt50Adapt;
 import great.android.cmu.ubiapp.model.Device;
-
+import great.android.cmu.ubiapp.rules.flood_rules.Batt50Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Hour12Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Hour18Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp14Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp22Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp30Rule;
+import great.android.cmu.ubiapp.workflow.MainWorkflow;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Device> devices;
     private Date lastDeviceUpdade;
+
+
+    Batt50Rule batt50Rule = new Batt50Rule(getApplicationContext());
+    Hour12Rule hour12Rule = new Hour12Rule(getApplicationContext());
+    Hour18Rule hour18Rule = new Hour18Rule(getApplicationContext());
+    Temp14Rule temp14Rule = new Temp14Rule(getApplicationContext());
+    Temp22Rule temp22Rule = new Temp22Rule(getApplicationContext());
+    Temp30Rule temp30Rule = new Temp30Rule(getApplicationContext());
+
+
+
+
 
 
 
@@ -43,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
+        MainWorkflow.receive(batt50Rule);
+        MainWorkflow.receive(hour12Rule);
+        MainWorkflow.receive(hour18Rule);
+        MainWorkflow.receive(temp14Rule);
+        MainWorkflow.receive(temp22Rule);
+        MainWorkflow.receive(temp30Rule);
+
 
 
     }

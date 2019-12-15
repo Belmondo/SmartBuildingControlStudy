@@ -10,7 +10,7 @@ import task.Task2;
 
 public class MainWorkflow {
 
-    static List<Filter> listaFiltros = new ArrayList<Filter>();
+    public static List<Filter> listaFiltros = new ArrayList<Filter>();
 
     public MainWorkflow (){}
 
@@ -23,7 +23,7 @@ public class MainWorkflow {
         adaptation.evaluate(appContext);
     }
 
-    public void executeBasedOnFilters() {
+    public static void executeBasedOnFilters() {
         for(Filter filter:listaFiltros) {
             filter.evaluate();
         }
