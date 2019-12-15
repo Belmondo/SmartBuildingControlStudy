@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 
 import great.android.cmu.ubiapp.CustomExpandableListAdapter;
 import great.android.cmu.ubiapp.MainActivity;
+import great.android.cmu.ubiapp.metrics.PostMetricsTask;
 import great.android.cmu.ubiapp.model.Device;
 import great.android.cmu.ubiapp.ExpandableListDataPump;
 import great.android.cmu.ubiapp.R;
@@ -52,6 +53,8 @@ public class SavedTabsFragment extends Fragment {
         pgsBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         new UpdateListView().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        /* Snippet to collect metrics: wat, ta, rulesEvaluated */
+        //new PostMetricsTask(getContext()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "10", "20", "50");
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override

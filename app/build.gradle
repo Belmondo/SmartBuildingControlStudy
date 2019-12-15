@@ -28,14 +28,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.preference:preference:1.1.0-alpha05'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.getDataFromCoapServer.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.getDataFromCoapServer.espresso:espresso-core:3.1.1'
     implementation 'org.eclipse.californium:californium-core:1.0.0-M1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation files('libs/SUCCEEdV2.6')
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-
-
-//    implementation 'com.takisoft.fix:preference-v7:25.3.0.0'
-
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    // implementation 'com.takisoft.fix:preference-v7:25.3.0.0'
 }
