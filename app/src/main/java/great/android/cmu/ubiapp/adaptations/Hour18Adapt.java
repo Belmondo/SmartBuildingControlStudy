@@ -3,11 +3,14 @@ package great.android.cmu.ubiapp.adaptations;
 import android.content.Context;
 
 import great.android.cmu.ubiapp.external.External_Processment;
+import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 import task.Task2;
 
 public class Hour18Adapt extends Task2 {
 
     Context received_context;
+    long timeOfStart;
+    long timeOfEnd;
 
     public Hour18Adapt (Context context){
         received_context = context;
@@ -25,7 +28,11 @@ public class Hour18Adapt extends Task2 {
 
     @Override
     public void executar() {
+
+        timeOfStart = System.currentTimeMillis();
         External_Processment.turnOnTheLights(received_context);
+        timeOfEnd = System.currentTimeMillis();
+        CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
     }
 
     @Override

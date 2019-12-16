@@ -101,4 +101,17 @@ public class CalculateMetrics {
     public int getNumberOfRulesVerified(){
         return this.numberOfRulesVerified;
     }
+
+//    public static void calculateExecutionTime(long timeOfStart, long timeOfEnd){
+//        System.out.println("Start: " + timeOfStart);
+//        System.out.println("End: " + timeOfEnd);
+//        System.out.println("The Adaptation has end in this time :" + (timeOfEnd -timeOfStart));
+//    }
+
+    public static long calculateExecutionTime(long timeOfStart, long timeOfEnd){
+        System.out.println("Start: " + timeOfStart);
+        System.out.println("End: " + timeOfEnd);
+        System.out.println("The Adaptation has end in this time :" + (timeOfEnd -timeOfStart));
+        return (timeOfEnd -timeOfStart);
+    }
 }

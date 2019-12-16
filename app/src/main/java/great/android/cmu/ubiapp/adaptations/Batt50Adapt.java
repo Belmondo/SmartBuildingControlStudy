@@ -4,11 +4,16 @@ import android.content.Context;
 import android.widget.Toast;
 
 import great.android.cmu.ubiapp.external.External_Processment;
+import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 import task.Task2;
 
 public class Batt50Adapt extends Task2 {
 
     Context received_context;
+
+    long timeOfStart;
+    long timeOfEnd;
+
 
     public Batt50Adapt (Context context){
         received_context = context;
@@ -26,7 +31,11 @@ public class Batt50Adapt extends Task2 {
 
     @Override
     public void executar() {
+        timeOfStart = System.currentTimeMillis();
         Toast.makeText(received_context, "Nível de bateria baixo", Toast.LENGTH_LONG).show();
+        timeOfEnd = System.currentTimeMillis();
+
+        CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
     }
 
     @Override

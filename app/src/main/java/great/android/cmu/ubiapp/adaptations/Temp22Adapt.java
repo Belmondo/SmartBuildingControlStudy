@@ -3,11 +3,14 @@ package great.android.cmu.ubiapp.adaptations;
 import android.content.Context;
 import android.widget.Toast;
 
+import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 import task.Task2;
 
 public class Temp22Adapt extends Task2 {
 
     Context received_context;
+    long timeOfStart;
+    long timeOfEnd;
 
     public Temp22Adapt (Context context){
         received_context = context;
@@ -24,7 +27,11 @@ public class Temp22Adapt extends Task2 {
 
     @Override
     public void executar() {
+        timeOfStart = System.currentTimeMillis();
         Toast.makeText(received_context, "A temperatura está agradável", Toast.LENGTH_LONG).show();
+        timeOfEnd = System.currentTimeMillis();
+        CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
+
 
     }
 

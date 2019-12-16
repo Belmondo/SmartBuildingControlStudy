@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private Date lastDeviceUpdade;
 
 
-    Batt50Rule batt50Rule = new Batt50Rule(getApplicationContext());
-    Hour12Rule hour12Rule = new Hour12Rule(getApplicationContext());
-    Hour18Rule hour18Rule = new Hour18Rule(getApplicationContext());
-    Temp14Rule temp14Rule = new Temp14Rule(getApplicationContext());
-    Temp22Rule temp22Rule = new Temp22Rule(getApplicationContext());
-    Temp30Rule temp30Rule = new Temp30Rule(getApplicationContext());
+    Batt50Rule batt50Rule;
+    Hour12Rule hour12Rule;
+    Hour18Rule hour18Rule;
+    Temp14Rule temp14Rule;
+    Temp22Rule temp22Rule;
+    Temp30Rule temp30Rule;
 
 
 
@@ -63,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
+        batt50Rule = new Batt50Rule(getApplicationContext());
+        hour12Rule = new Hour12Rule(getApplicationContext());
+        hour18Rule = new Hour18Rule(getApplicationContext());
+        temp14Rule = new Temp14Rule(getApplicationContext());
+        temp22Rule = new Temp22Rule(getApplicationContext());
+        temp30Rule = new Temp30Rule(getApplicationContext());
 
         MainWorkflow.receive(batt50Rule);
         MainWorkflow.receive(hour12Rule);

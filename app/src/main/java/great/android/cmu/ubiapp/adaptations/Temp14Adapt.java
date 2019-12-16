@@ -1,13 +1,17 @@
 package great.android.cmu.ubiapp.adaptations;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import great.android.cmu.ubiapp.external.External_Processment;
+import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 import task.Task2;
 
 public class Temp14Adapt extends Task2 {
 
     Context received_context;
+    long timeOfStart;
+    long timeOfEnd;
 
     public Temp14Adapt (Context context){
         received_context = context;
@@ -25,8 +29,10 @@ public class Temp14Adapt extends Task2 {
 
     @Override
     public void executar() {
+        timeOfStart = System.currentTimeMillis();
         External_Processment.turnOffTheAir(received_context);
-
+        timeOfEnd = System.currentTimeMillis();
+        CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
     }
 
     @Override
