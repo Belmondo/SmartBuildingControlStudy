@@ -1,13 +1,9 @@
 package great.android.cmu.ubiapp.ui.notifications;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,205 +11,107 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import great.android.cmu.ubiapp.R;
-import great.android.cmu.ubiapp.model.DeviceActionMessage;
-import great.android.cmu.ubiapp.helpers.Utils;
+import great.android.cmu.ubiapp.helpers.Keywords;
 
-import static great.android.cmu.ubiapp.keywords.keywords.RAIO_DIGITADO;
-import static great.android.cmu.ubiapp.keywords.keywords.SWITCH_STATE;
+import static great.android.cmu.ubiapp.MainActivity.sharedPrefs;
+import static great.android.cmu.ubiapp.helpers.Keywords.DISTANCE_SWITCH;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
-    Switch switchFiltros;
+    private Switch switchCoap;
+    private Switch switchDistance;
 
-    Switch switchCoap;
+    private TextView tvRadius;
+    private TextView tvInfoMessage;
+    private EditText etRadius;
 
-    TextView tvRaio;
-    TextView tvMensagem;
-    EditText etRaio;
+    private static int radius = 10;
 
-    static int raioDigitado;
-
-    DeviceActionMessage dvaMessage;
-
-
-    boolean switchState = false;
-    boolean switchCoapState = false;
-    static SharedPreferences sharedPrefs;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        notificationsViewModel = ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        switchFiltros = (Switch) root.findViewById(R.id.switchFiltro);
+        switchDistance = (Switch) root.findViewById(R.id.switchFiltro);
         switchCoap = (Switch) root.findViewById(R.id.switchCoap);
-        tvRaio = (TextView) root.findViewById(R.id.textView2);
-        tvMensagem = (TextView) root.findViewById(R.id.textView4);
-        etRaio = (EditText) root.findViewById(R.id.editTextRaio);
+        tvRadius = (TextView) root.findViewById(R.id.textView2);
+        tvInfoMessage = (TextView) root.findViewById(R.id.textView4);
+        etRadius = (EditText) root.findViewById(R.id.editTextRaio);
 
-        dvaMessage = new DeviceActionMessage();
+        if(sharedPrefs.contains(Keywords.COAP_SWITCH)){
+            switchCoap.setChecked(sharedPrefs.getBoolean(Keywords.COAP_SWITCH, false));
+            switchDistance.setClickable(true);
+        }else{
+            switchDistance.setClickable(false);
+        }
+        if(sharedPrefs.contains(DISTANCE_SWITCH)){
+            switchDistance.setChecked(sharedPrefs.getBoolean(Keywords.DISTANCE_SWITCH, false));
+            boolean switchDistanceState = sharedPrefs.getBoolean(Keywords.DISTANCE_SWITCH, false);
+            if(switchDistanceState){
+                tvRadius.setVisibility(View.VISIBLE);
+                tvInfoMessage.setVisibility(View.VISIBLE);
+                etRadius.setVisibility(View.VISIBLE);
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-
-
-        if(sharedPrefs.contains("switchState")){
-            switchFiltros.setChecked(sharedPrefs.getBoolean(SWITCH_STATE,false));
-            switchState = sharedPrefs.getBoolean(SWITCH_STATE, false);
-//
-            if(switchState){
-                tvRaio.setVisibility(View.VISIBLE);
-                tvMensagem.setVisibility(View.VISIBLE);
-                etRaio.setVisibility(View.VISIBLE);
-
-                etRaio.setText(sharedPrefs.getString(RAIO_DIGITADO, " "));
+                etRadius.setText(String.valueOf(sharedPrefs.getInt(Keywords.RADIUS, 10)));
             }
         }
-
-
-
-        switchFiltros.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
-                if(isChecked) {
-                    //do stuff when Switch is ON
-                    tvRaio.setVisibility(View.VISIBLE);
-                    tvMensagem.setVisibility(View.VISIBLE);
-                    etRaio.setVisibility(View.VISIBLE);
-                    sharedPrefs.edit().putBoolean(SWITCH_STATE, true).commit();
-                    new UpdateContextTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                } else {
-                    //do stuff when Switch if OFF
-                    tvRaio.setVisibility(View.INVISIBLE);
-                    tvMensagem.setVisibility(View.INVISIBLE);
-                    etRaio.setVisibility(View.INVISIBLE);
-                    sharedPrefs.edit().putBoolean(SWITCH_STATE, false).commit();
-                }
-            }
-        });
-
-
-
-
 
         switchCoap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
+                sharedPrefs.edit().putBoolean(Keywords.CHANGED, true).commit();
                 if(isChecked) {
-                    //do stuff when Switch is ON
-                    Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
+                    sharedPrefs.edit().putBoolean(Keywords.COAP_SWITCH, true).commit();
+                    switchDistance.setClickable(true);
                 } else {
-
+                    sharedPrefs.edit().putBoolean(Keywords.COAP_SWITCH, false).commit();
+                    switchDistance.setChecked(false);
+                    switchDistance.setClickable(false);
                 }
             }
         });
 
-        etRaio.addTextChangedListener(new TextWatcher()
-        {
+        switchDistance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void afterTextChanged(Editable mEdit)
-            {
-
-//                Toast.makeText(getActivity(), "texto:" + mEdit.toString(), Toast.LENGTH_SHORT).show();
-
-                sharedPrefs.edit().putString(RAIO_DIGITADO, mEdit.toString()).commit();
-
-                if(mEdit.length() != 0){
-                raioDigitado = Integer.parseInt(mEdit.toString());
-
-
-
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPrefs.edit().putBoolean(Keywords.CHANGED, true).commit();
+                if(isChecked) {
+                    tvRadius.setVisibility(View.VISIBLE);
+                    tvInfoMessage.setVisibility(View.VISIBLE);
+                    etRadius.setVisibility(View.VISIBLE);
+                    sharedPrefs.edit().putBoolean(DISTANCE_SWITCH, true).commit();
+                } else {
+                    tvRadius.setVisibility(View.INVISIBLE);
+                    tvInfoMessage.setVisibility(View.INVISIBLE);
+                    etRadius.setVisibility(View.INVISIBLE);
+                    sharedPrefs.edit().putBoolean(DISTANCE_SWITCH, false).commit();
                 }
+            }
+        });
 
+        etRadius.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void afterTextChanged(Editable mEdit){
+                if(mEdit.length() != 0 && Integer.parseInt(mEdit.toString()) > 0){
+                    sharedPrefs.edit().putBoolean(Keywords.CHANGED, true).commit();
+                    radius = Integer.parseInt(mEdit.toString());
+                    sharedPrefs.edit().putInt(Keywords.RADIUS, radius).commit();
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-
-
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
         return root;
-    }
-
-    public static int getRaio(){
-        return Integer.parseInt(sharedPrefs.getString(RAIO_DIGITADO, " "));
-    }
-
-
-    private class UpdateContextTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Utils.sendBroadcast(new ArrayList<String>());
-            Long currentTime = System.currentTimeMillis();
-            new UDP_Listener().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentTime);
-            return null;
-        }
-    }
-
-    private class UDP_Listener extends AsyncTask<Long, String, Long>{
-        @Override
-        protected Long doInBackground(Long... inputs) {
-            int server_port = 6789;
-            byte[] message = new byte[1024];
-            try{
-                DatagramPacket p = new DatagramPacket(message, message.length);
-                DatagramSocket s = new DatagramSocket(server_port);
-                s.receive(p);
-
-                String clientMessage = new String(p.getData(), 0, p.getLength());
-                String result = "IP " + p.getAddress().toString() + " sent: " + clientMessage;
-                System.out.println(result);
-
-                s.close();
-                publishProgress(result);
-            }catch(Exception e){
-                Log.d("UDP_Listener","Error: " + e.toString());
-            }
-            return System.currentTimeMillis() - inputs[0];
-        }
-
-        @Override
-        protected void onProgressUpdate(String... progress) {
-            Toast.makeText(getActivity(), progress[0], Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        protected void onPostExecute(Long elapsedTime) {
-            super.onPostExecute(elapsedTime);
-            Toast.makeText(getActivity(), "elapsed time " + elapsedTime.toString(), Toast.LENGTH_LONG).show();
-            System.out.println("Elapsed Time: " + elapsedTime);
-        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //this.myContext = context;
     }
-
-
-
 }

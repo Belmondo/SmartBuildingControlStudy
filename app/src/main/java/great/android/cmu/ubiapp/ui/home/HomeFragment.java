@@ -1,5 +1,6 @@
 package great.android.cmu.ubiapp.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,5 +32,10 @@ public class HomeFragment extends Fragment {
         ProgressBar pgsBar = (ProgressBar) root.findViewById(R.id.progressBar);
         pgsBar.setVisibility(View.VISIBLE);
         return root;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 }

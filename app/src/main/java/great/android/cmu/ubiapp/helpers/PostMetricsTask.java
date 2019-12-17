@@ -1,4 +1,4 @@
-package great.android.cmu.ubiapp.metrics;
+package great.android.cmu.ubiapp.helpers;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,30 +17,34 @@ import okhttp3.Response;
 
 public class PostMetricsTask extends AsyncTask<String, Void, Boolean> {
 
-    public PostMetricsTask(Context context){
-        this.context = context;
-    }
-
     private Context context;
-    public static final MediaType FORM_DATA_TYPE = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
-    public static final String URL = "https://docs.google.com/forms/d/e/1FAIpQLSe9kYO3qQRmt-EgNCk5tHOv_p80Ta9cpfF0pHxZODWtdIotPg/formResponse";
-    public static final String WAT_KEY = "entry.1011940443";
-    public static final String TA_KEY = "entry.527634828";
-    public static final String RULES_EVAL_KEY = "entry.1685283592";
+    private final MediaType FORM_DATA_TYPE = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+    private String URL;
+
+    private String[] keys;
+
+    public PostMetricsTask(Context context, int type){
+        this.context = context;
+
+        if(type == 1){
+            URL = "https://docs.google.com/forms/d/e/1FAIpQLSe9kYO3qQRmt-EgNCk5tHOv_p80Ta9cpfF0pHxZODWtdIotPg/formResponse";
+            this.keys = new String[]{"entry.1011940443", "entry.527634828", "entry.1685283592"};
+        }else if(type == 2){
+            URL = "https://docs.google.com/forms/d/e/1FAIpQLSfbi5MDgaLaZGZcugUf7C5X3DKJVF5mx_sZqksF20wNmNybZQ/formResponse";
+            this.keys = new String[]{"entry.1760472624", "entry.834188860", "entry.2078865570"};
+        }
+    }
 
     @Override
     protected Boolean doInBackground(String... metrics) {
         Boolean result = true;
-        String wat = metrics[0];
-        String ta = metrics[1];
-        String rulesEval = metrics[2];
         String postBody = "";
 
         try {
             //all values must be URL encoded to make sure that special characters like & | ",etc. do not cause problems
-            postBody = WAT_KEY + "=" + URLEncoder.encode(wat,"UTF-8") +
-                    "&" + TA_KEY + "=" + URLEncoder.encode(ta,"UTF-8") +
-                    "&" + RULES_EVAL_KEY + "=" + URLEncoder.encode(rulesEval,"UTF-8");
+            for(int i = 0; i < metrics.length; i++){
+                postBody += this.keys[i] + "=" + URLEncoder.encode(metrics[i],"UTF-8") + "&";
+            }
         } catch (UnsupportedEncodingException ex) {
             result = false;
         }
@@ -56,7 +60,6 @@ public class PostMetricsTask extends AsyncTask<String, Void, Boolean> {
         }catch (IOException exception){
             result = false;
         }
-
 
         return result;
     }

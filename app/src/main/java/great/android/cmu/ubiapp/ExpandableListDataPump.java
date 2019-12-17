@@ -9,26 +9,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import great.android.cmu.ubiapp.helpers.Keywords;
 import great.android.cmu.ubiapp.model.Device;
 
 public class ExpandableListDataPump {
 
-    static List<Device> coapDevicesList = new ArrayList<>();
-
-    public static void setDevicesList(Device device){
-        coapDevicesList.add(device);
-        //  System.out.println("device que entrou no expandable" + device);
-        //  System.out.println("setou dados");
-    }
-
-    public static void setDevicesList(List<Device> listOfDevices){
-        coapDevicesList.addAll(listOfDevices);
-    }
-
-
-    public static HashMap<String, List<String>> getData() {
+    public static HashMap<String, List<String>> getData(List<Device> coapDevicesList) {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
-        List<String> myDevices = new ArrayList<String>();
+        List<String> mySensors = new ArrayList<String>();
+        List<String> myActuators = new ArrayList<String>();
         ArrayList<String> environments = new ArrayList<>();
         for(int i = 0; i < coapDevicesList.size(); i++) {
             Device device = coapDevicesList.get(i);
@@ -36,20 +25,29 @@ public class ExpandableListDataPump {
             String devIP = device.getIp();
             if(env != null && devIP != null){
                 String devName = device.getResourceType().replaceAll("\"", "");
-                myDevices.add(env + " - " + devName + " - " + devIP);
                 if(!environments.contains(env)){
                     environments.add(env);
+                }
+                if(device.getType().equals("actuator")){
+                    myActuators.add(env + " - " + devName + " - " + devIP);
+                }else{
+                    mySensors.add(env + " - " + devName + " - " + devIP);
                 }
             }
         }
 
-        Collections.sort(myDevices);
+        Collections.sort(mySensors);
+        Collections.sort(myActuators);
+        Collections.sort(environments);
 
-        System.out.println(environments);
-        System.out.println(myDevices);
+        //System.out.println(environments);
+        //System.out.println(mySensors);
 
-        expandableListDetail.put("GENERAL DEVICES", myDevices);
-        expandableListDetail.put("MY ENVIRONMENTS", environments);
+        expandableListDetail.clear();
+
+        expandableListDetail.put(Keywords.LD_ENV, environments);
+        expandableListDetail.put(Keywords.LD_ACTUATORS, myActuators);
+        expandableListDetail.put(Keywords.LD_SENSORS, mySensors);
         return expandableListDetail;
     }
 }
