@@ -4,9 +4,10 @@ import android.content.Context;
 
 import evaluators.Assignment;
 import evaluators.EvaluationException;
-import evaluators.Filter;
+
 import great.android.cmu.ubiapp.adaptations.Hour18Adapt;
 import great.android.cmu.ubiapp.helpers.CalculateMetrics;
+import great.android.cmu.ubiapp.rules.Filter;
 
 public class Hour18Rule extends Filter {
 
@@ -42,4 +43,8 @@ public class Hour18Rule extends Filter {
         hour18Adapt.executar();
     }
 
+    @Override
+    public void setContext(int random){
+        setCurrentHourIn24Format(random);
+    }
 }

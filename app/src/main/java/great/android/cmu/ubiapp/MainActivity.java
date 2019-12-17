@@ -4,6 +4,7 @@ package great.android.cmu.ubiapp;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -32,6 +33,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import great.android.cmu.ubiapp.helpers.Keywords;
 import great.android.cmu.ubiapp.model.Device;
+import great.android.cmu.ubiapp.rules.flood_rules.Batt50Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Hour12Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Hour18Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp14Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp22Rule;
+import great.android.cmu.ubiapp.rules.flood_rules.Temp30Rule;
+import great.android.cmu.ubiapp.workflow.MainWorkflow;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,18 +60,15 @@ public class MainActivity extends AppCompatActivity {
         Manifest.permission.ACCESS_WIFI_STATE
     };
 
-    /*Batt50Rule batt50Rule = new Batt50Rule(getApplicationContext());
-    Hour12Rule hour12Rule = new Hour12Rule(getApplicationContext());
-    Hour18Rule hour18Rule = new Hour18Rule(getApplicationContext());
-    Temp14Rule temp14Rule = new Temp14Rule(getApplicationContext());
-    Temp22Rule temp22Rule = new Temp22Rule(getApplicationContext());
-    Temp30Rule temp30Rule = new Temp30Rule(getApplicationContext());*/
+
     Batt50Rule batt50Rule;
     Hour12Rule hour12Rule;
     Hour18Rule hour18Rule;
     Temp14Rule temp14Rule;
     Temp22Rule temp22Rule;
     Temp30Rule temp30Rule;
+
+    Intent intent  = new Intent("Context_Manager");
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -106,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 
-        /*MainWorkflow.receive(batt50Rule);
 
         batt50Rule = new Batt50Rule(getApplicationContext());
         hour12Rule = new Hour12Rule(getApplicationContext());
@@ -120,7 +124,10 @@ public class MainActivity extends AppCompatActivity {
         MainWorkflow.receive(hour18Rule);
         MainWorkflow.receive(temp14Rule);
         MainWorkflow.receive(temp22Rule);
-        MainWorkflow.receive(temp30Rule);*/
+        MainWorkflow.receive(temp30Rule);
+
+
+        startService(intent);
     }
 
     // Function to check and request permission.

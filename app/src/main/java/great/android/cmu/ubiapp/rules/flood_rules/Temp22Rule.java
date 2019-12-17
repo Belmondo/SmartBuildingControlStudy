@@ -4,9 +4,9 @@ import android.content.Context;
 
 import evaluators.Assignment;
 import evaluators.EvaluationException;
-import evaluators.Filter;
 import great.android.cmu.ubiapp.adaptations.Temp22Adapt;
 import great.android.cmu.ubiapp.helpers.CalculateMetrics;
+import great.android.cmu.ubiapp.rules.Filter;
 
 public class Temp22Rule extends Filter {
 
@@ -40,5 +40,10 @@ public class Temp22Rule extends Filter {
     @Override
     public void execute() {
         temp22Adapt.executar();
+    }
+
+    @Override
+    public void setContext(int random){
+        setDetectedTemperature((float)random);
     }
 }

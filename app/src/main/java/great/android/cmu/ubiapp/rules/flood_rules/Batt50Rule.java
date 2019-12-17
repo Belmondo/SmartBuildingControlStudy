@@ -4,9 +4,9 @@ import android.content.Context;
 
 import evaluators.Assignment;
 import evaluators.EvaluationException;
-import evaluators.Filter;
 import great.android.cmu.ubiapp.adaptations.Batt50Adapt;
 import great.android.cmu.ubiapp.helpers.CalculateMetrics;
+import great.android.cmu.ubiapp.rules.Filter;
 
 public class Batt50Rule extends Filter {
 
@@ -44,4 +44,8 @@ public class Batt50Rule extends Filter {
         batt50Adapt.executar();
     }
 
+    @Override
+    public void setContext(int random){
+        setBatteryLevel(random);
+    }
 }

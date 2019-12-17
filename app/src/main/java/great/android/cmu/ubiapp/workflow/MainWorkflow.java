@@ -4,7 +4,9 @@ package great.android.cmu.ubiapp.workflow;
 import java.util.ArrayList;
 import java.util.List;
 
-import evaluators.Filter;
+
+import great.android.cmu.ubiapp.rules.Filter;
+import great.android.cmu.ubiapp.rules.flood_rules.Batt50Rule;
 import task.Task2;
 
 
@@ -27,5 +29,19 @@ public class MainWorkflow {
         for(Filter filter:listaFiltros) {
             filter.evaluate();
         }
+    }
+
+    public static void observeContexts(int randomTemp, int randomHour, int Battery){
+
+    //deixar mais inteligente
+    }
+
+    public static void observeContexts(int randomNumber){
+        for(Filter filter:listaFiltros) {
+            filter.setContext(randomNumber);
+        }
+
+        executeBasedOnFilters();
+
     }
 }
