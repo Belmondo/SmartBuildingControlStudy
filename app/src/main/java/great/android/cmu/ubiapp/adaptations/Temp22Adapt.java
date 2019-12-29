@@ -28,7 +28,7 @@ public class Temp22Adapt extends Task2 {
     @Override
     public void executar() {
         timeOfStart = System.currentTimeMillis();
-        Toast.makeText(received_context, "A temperatura está agradável", Toast.LENGTH_LONG).show();
+        //Toast.makeText(received_context, "A temperatura está agradável", Toast.LENGTH_LONG).show();
         timeOfEnd = System.currentTimeMillis();
         CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
 
