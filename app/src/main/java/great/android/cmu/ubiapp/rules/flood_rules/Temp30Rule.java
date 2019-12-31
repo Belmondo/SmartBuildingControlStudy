@@ -14,6 +14,12 @@ public class Temp30Rule extends Filter {
     float detectedTemperature;
     Temp30Adapt temp30Adapt;
 
+    long timeOfRuleStart;
+    long timeOfRuleEnd;
+
+    long timeOfAdaptStart;
+    long timeOfAdaptEnd;
+
     public Temp30Rule(Context context){
         temp30Adapt = new Temp30Adapt(context);
     }
@@ -28,11 +34,14 @@ public class Temp30Rule extends Filter {
 
     @Override
     public boolean evaluate() {
+        timeOfRuleStart = System.currentTimeMillis();
         if (detectedTemperature>=30.0){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
+            timeOfRuleEnd = System.currentTimeMillis();
             return true;
         } else{
+            timeOfRuleEnd = System.currentTimeMillis();
             return false;
         }
 
@@ -40,7 +49,11 @@ public class Temp30Rule extends Filter {
 
     @Override
     public void execute() {
+
+        timeOfAdaptStart = System.currentTimeMillis();
         temp30Adapt.executar();
+        timeOfAdaptEnd = System.currentTimeMillis();
+        CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
     }
 
     @Override

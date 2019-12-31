@@ -16,6 +16,12 @@ public class Hour12Rule extends Filter {
 
     Hour12Adapt hour12Adapt;
 
+    long timeOfRuleStart;
+    long timeOfRuleEnd;
+
+    long timeOfAdaptStart;
+    long timeOfAdaptEnd;
+
     public Hour12Rule (Context context){
 
         hour12Adapt = new Hour12Adapt(context);
@@ -33,18 +39,27 @@ public class Hour12Rule extends Filter {
 
     @Override
     public boolean evaluate() {
+        timeOfRuleStart = System.currentTimeMillis();
         if (currentHourIn24Format==12){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
+            timeOfRuleEnd = System.currentTimeMillis();
             return true;
         } else{
+            timeOfRuleEnd = System.currentTimeMillis();
             return false;
         }
     }
 
     @Override
     public void execute() {
+
+        timeOfAdaptStart = System.currentTimeMillis();
         hour12Adapt.executar();
+
+        timeOfAdaptEnd = System.currentTimeMillis();
+
+        CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
     }
 
     @Override
