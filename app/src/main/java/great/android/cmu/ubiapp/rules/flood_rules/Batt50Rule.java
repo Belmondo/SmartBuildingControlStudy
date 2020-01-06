@@ -35,7 +35,10 @@ public class Batt50Rule extends Filter {
 
     @Override
     public boolean evaluate() {
+
         timeOfRuleStart = System.currentTimeMillis();
+
+        System.out.println("Trs E"+ timeOfRuleStart);
         if (batteryLevel<=50){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
@@ -55,6 +58,9 @@ public class Batt50Rule extends Filter {
         timeOfAdaptStart = System.currentTimeMillis();
         batt50Adapt.executar();
         timeOfAdaptEnd = System.currentTimeMillis();
+
+        System.out.println("ENTROU NO EXECUTE");
+        System.out.println("TRE:" + timeOfRuleEnd + "TRS"+ timeOfRuleStart);
 
         CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
     }
