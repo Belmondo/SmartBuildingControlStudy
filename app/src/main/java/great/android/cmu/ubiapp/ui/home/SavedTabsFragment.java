@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 
 import great.android.cmu.ubiapp.CustomExpandableListAdapter;
 import great.android.cmu.ubiapp.MainActivity;
+import great.android.cmu.ubiapp.helpers.CalculateMetrics;
 import great.android.cmu.ubiapp.helpers.Keywords;
 import great.android.cmu.ubiapp.helpers.SendBroadcastTask;
 import great.android.cmu.ubiapp.helpers.PostMetricsTask;
@@ -62,7 +63,7 @@ public class SavedTabsFragment extends Fragment {
 
         new UpdateListView().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         /* Snippet to collect metrics: wat, ta, rulesEvaluated */
-        new PostMetricsTask(getContext(), 1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "10", "20", "50");
+        new PostMetricsTask(getContext(), 1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(CalculateMetrics.getCalculatedGeneralWat()), String.valueOf(CalculateMetrics.getCalculatedTAs()), String.valueOf(CalculateMetrics.getNumberOfRulesVerified()));
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override

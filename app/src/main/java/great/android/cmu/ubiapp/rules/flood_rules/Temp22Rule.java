@@ -13,6 +13,12 @@ public class Temp22Rule extends Filter {
     float detectedTemperature;
     Temp22Adapt temp22Adapt;
 
+    long timeOfRuleStart;
+    long timeOfRuleEnd;
+
+    long timeOfAdaptStart;
+    long timeOfAdaptEnd;
+
     public Temp22Rule (Context context){
         temp22Adapt = new Temp22Adapt(context);
     }
@@ -28,18 +34,24 @@ public class Temp22Rule extends Filter {
 
     @Override
     public boolean evaluate() {
+        timeOfRuleStart = System.currentTimeMillis();
         if (detectedTemperature==22.0){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
+            timeOfRuleEnd = System.currentTimeMillis();
             return true;
         } else{
+            timeOfRuleEnd = System.currentTimeMillis();
             return false;
         }
     }
 
     @Override
     public void execute() {
+        timeOfAdaptStart = System.currentTimeMillis();
         temp22Adapt.executar();
+        timeOfAdaptEnd = System.currentTimeMillis();
+        CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
     }
 
     @Override

@@ -6,12 +6,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class CalculateMetrics {
 
     static ArrayList<Long> TaTimes = new ArrayList();
     static ArrayList<Long> GeneralWatTimes = new ArrayList();
+
 
     static int numberOfRulesVerified = 0;
 
@@ -42,6 +43,26 @@ public class CalculateMetrics {
     }
 
 
+    public static Long getCalculatedGeneralWat(){
+
+        Long GeneralWATTimeVariable = 0L;
+
+        if (!GeneralWatTimes.isEmpty()) {
+            for (int i = 0; i < GeneralWatTimes.size(); i++) {
+                GeneralWATTimeVariable += GeneralWatTimes.get(i);
+
+            }
+
+            Log.d("GENERAL WAT", "General Wat Calculated: " + GeneralWATTimeVariable);
+            return GeneralWATTimeVariable;
+
+        }
+        else{
+            return 1L;
+        }
+    }
+
+
     public static void calculateGeneralWat(Context context){
 
         Long GeneralWATTimeVariable = null;
@@ -55,8 +76,27 @@ public class CalculateMetrics {
 
     }
 
-    public static void setGeneralWatTimes(Long WorkingTime, Long AdaptivityTime){
-        GeneralWatTimes.add((WorkingTime/AdaptivityTime));
+    public static void setGeneralWatTimes(long WorkingTime, long AdaptivityTime){
+
+        Long auxWorkingTime = new Long(WorkingTime);
+        Long auxAdaotivityTime = new Long(AdaptivityTime);
+
+        System.out.println("WT:" + WorkingTime);
+        System.out.println("AT:" + AdaptivityTime);
+
+        if(auxWorkingTime.equals(0)){
+            System.out.println("aux1 igual a 0");
+            GeneralWatTimes.add(0L);
+        }
+        if (auxAdaotivityTime.equals(0)) {
+            System.out.println("aux2 igual a 0");
+            GeneralWatTimes.add(0L);
+        }else{
+            System.out.println("entrei no else");
+            System.out.println("WT:" + WorkingTime);
+            System.out.println("AT:" + AdaptivityTime);
+            GeneralWatTimes.add((WorkingTime/AdaptivityTime ));
+        }
     }
 
 
@@ -75,6 +115,23 @@ public class CalculateMetrics {
         Log.d("GENERAL TA", "General TA Calculated: " + GeneralTAVariable );
 
     }
+
+    public static Long getCalculatedTAs(){
+        Long GeneralTAVariable = null;
+
+        if(!TaTimes.isEmpty()){
+        for(int i=0; i< TaTimes.size(); i++){
+            GeneralTAVariable +=TaTimes.get(i);
+        }
+        Log.d("GET GENERAL TA", "General TA Calculated: " + GeneralTAVariable );
+        return GeneralTAVariable;
+        } else{
+
+
+        return Long.valueOf(1);
+        }
+    }
+
 
     public static void calculateTA(Context context){
         Long GeneralTAVariable = null;
@@ -98,8 +155,8 @@ public class CalculateMetrics {
         numberOfRulesVerified ++;
     }
 
-    public int getNumberOfRulesVerified(){
-        return this.numberOfRulesVerified;
+    public static int getNumberOfRulesVerified(){
+        return numberOfRulesVerified;
     }
 
 //    public static void calculateExecutionTime(long timeOfStart, long timeOfEnd){
