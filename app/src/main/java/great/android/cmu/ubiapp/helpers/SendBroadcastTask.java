@@ -19,6 +19,7 @@ public class SendBroadcastTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... ips) {
         ArrayList<String> devicesIPS = new ArrayList<>(Arrays.asList(ips));
+        System.out.println(devicesIPS);
         Utils.sendBroadcast(devicesIPS);
         Long currentTime = System.currentTimeMillis();
         new UDPListenerTask(context, new Gson().toJson(devicesIPS)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentTime);

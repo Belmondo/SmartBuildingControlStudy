@@ -19,19 +19,22 @@ public class ExpandableListDataPump {
         List<String> mySensors = new ArrayList<String>();
         List<String> myActuators = new ArrayList<String>();
         ArrayList<String> environments = new ArrayList<>();
-        for(int i = 0; i < coapDevicesList.size(); i++) {
-            Device device = coapDevicesList.get(i);
-            String env = device.getContext().get("env");
-            String devIP = device.getIp();
-            if(env != null && devIP != null){
-                String devName = device.getResourceType().replaceAll("\"", "");
-                if(!environments.contains(env)){
-                    environments.add(env);
-                }
-                if(device.getType().equals("actuator")){
-                    myActuators.add(env + " - " + devName + " - " + devIP);
-                }else{
-                    mySensors.add(env + " - " + devName + " - " + devIP);
+
+        if(coapDevicesList != null) {
+            for (int i = 0; i < coapDevicesList.size(); i++) {
+                Device device = coapDevicesList.get(i);
+                String env = device.getContext().get("env");
+                String devIP = device.getIp();
+                if (env != null && devIP != null) {
+                    String devName = device.getResourceType().replaceAll("\"", "");
+                    if (!environments.contains(env)) {
+                        environments.add(env);
+                    }
+                    if (device.getType().equals("actuator")) {
+                        myActuators.add(env + " - " + devName + " - " + devIP);
+                    } else {
+                        mySensors.add(env + " - " + devName + " - " + devIP);
+                    }
                 }
             }
         }

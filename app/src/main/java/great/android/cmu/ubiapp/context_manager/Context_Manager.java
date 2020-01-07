@@ -46,11 +46,11 @@ public class Context_Manager extends Service {
         public void run(){
             while(active && count < 10){
                 changeContext();
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
                 count++;
             }

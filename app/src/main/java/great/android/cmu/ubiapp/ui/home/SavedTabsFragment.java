@@ -160,7 +160,7 @@ public class SavedTabsFragment extends Fragment {
 
             /**
              * Requests examples:
-             * - coap://18.229.202.214:5683/.well-known/core
+             * - coap:// /.well-known/core
              * - coap://18.229.202.214:5683/devices?if=sensor
              * - coap://18.229.202.214:5683/devices?proximity=165,-3.7466212,-38.5769008
              * - coap://18.229.202.214:5683/devices?proximity=165,-3.7466212,-38.5769008&if=actuator

@@ -31,6 +31,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import great.android.cmu.ubiapp.context_manager.Context_Manager;
 import great.android.cmu.ubiapp.helpers.Keywords;
 import great.android.cmu.ubiapp.model.Device;
 import great.android.cmu.ubiapp.rules.flood_rules.Batt50Rule;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     Temp22Rule temp22Rule;
     Temp30Rule temp30Rule;
 
-    Intent intent  = new Intent("Context_Manager");
+//    Intent intent;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -127,7 +128,20 @@ public class MainActivity extends AppCompatActivity {
         MainWorkflow.receive(temp30Rule);
 
 
-        startService(intent);
+//        intent  = new Intent("Start_Context");
+//        startService(intent);
+
+        //Intent serviceIntent = new Intent(this, Context_Manager.class);
+        //startService(serviceIntent);
+
+//        intent = new Intent("Start_Context");
+//        intent.setPackage(".context_manager.Context_Manager");
+//
+//        bindService(intent, connection, Context.BIND_AUTO_CREATE); // Context.BIND_AUTO_CREATE
+
+//Intent it = new Intent("SERVICO_CONEXAO");
+        //startService(intent);
+
     }
 
     // Function to check and request permission.
