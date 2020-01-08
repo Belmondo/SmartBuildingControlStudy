@@ -2,6 +2,8 @@ package great.android.cmu.ubiapp.rules.flood_rules;
 
 import android.content.Context;
 
+import java.util.Date;
+
 import evaluators.Assignment;
 import evaluators.EvaluationException;
 import great.android.cmu.ubiapp.adaptations.Batt50Adapt;
@@ -11,14 +13,8 @@ import great.android.cmu.ubiapp.rules.Filter;
 public class Batt50Rule extends Filter {
 
     Batt50Adapt batt50Adapt;
-
     static int batteryLevel = 0;
-
-    long timeOfRuleStart;
-    long timeOfRuleEnd;
-
-    long timeOfAdaptStart;
-    long timeOfAdaptEnd;
+    long timeOfRule;
 
     public Batt50Rule (Context context){
         batt50Adapt  = new Batt50Adapt(context);
@@ -35,34 +31,27 @@ public class Batt50Rule extends Filter {
 
     @Override
     public boolean evaluate() {
+        long timeOfRuleStart = new Date().getTime();
 
-        timeOfRuleStart = System.currentTimeMillis();
-
-        System.out.println("Trs E"+ timeOfRuleStart);
-        if (batteryLevel<=50){
+        if (batteryLevel <= 50){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
-            timeOfRuleEnd = System.currentTimeMillis();
+            this.timeOfRule = new Date().getTime() - timeOfRuleStart;
             return true;
         } else{
-            timeOfRuleEnd = System.currentTimeMillis();
+            this.timeOfRule = new Date().getTime() - timeOfRuleStart;
             return false;
         }
-
-
 
     }
 
     @Override
     public void execute() {
-        timeOfAdaptStart = System.currentTimeMillis();
+        long timeOfAdaptStart = new Date().getTime();
         batt50Adapt.executar();
-        timeOfAdaptEnd = System.currentTimeMillis();
+        long timeOfAdapt = new Date().getTime() - timeOfAdaptStart;
 
-        System.out.println("ENTROU NO EXECUTE");
-        System.out.println("TRE:" + timeOfRuleEnd + "TRS"+ timeOfRuleStart);
-
-        CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
+        CalculateMetrics.setGeneralWatTimes(timeOfRule, timeOfAdapt);
     }
 
     @Override

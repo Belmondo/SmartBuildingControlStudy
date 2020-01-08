@@ -17,14 +17,10 @@ public class Async_Context_Manager {
 
     static Context received_context;
 
-
-
-
     public static void startContextManager(Context context){
         received_context = context;
         new StartContextManager().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
-
 
     private static class StartContextManager extends AsyncTask<Void, Void, Void> {
         @Override
@@ -34,13 +30,9 @@ public class Async_Context_Manager {
         }
     }
 
-
-
-
     private static int generateRandom(int up, int down){
         return ((int)(Math.random()* up+down));
     }
-
 
     private static class ChangeContext extends AsyncTask<Long, String, Long>{
         public int count = 0;
@@ -54,10 +46,9 @@ public class Async_Context_Manager {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
                 count++;
             }
-            return System.currentTimeMillis() - inputs[0];
+            return (inputs.length > 0) ? System.currentTimeMillis() - inputs[0] : 0;
         }
 
         @Override
@@ -72,6 +63,4 @@ public class Async_Context_Manager {
             System.out.println("Elapsed Time: " + elapsedTime);
         }
     }
-
-
 }

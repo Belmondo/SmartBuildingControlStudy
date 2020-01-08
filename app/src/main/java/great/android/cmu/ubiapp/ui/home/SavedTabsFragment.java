@@ -63,7 +63,11 @@ public class SavedTabsFragment extends Fragment {
 
         new UpdateListView().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         /* Snippet to collect metrics: wat, ta, rulesEvaluated */
-        new PostMetricsTask(getContext(), 1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(CalculateMetrics.getCalculatedGeneralWat()), String.valueOf(CalculateMetrics.getCalculatedTAs()), String.valueOf(CalculateMetrics.getNumberOfRulesVerified()));
+        new PostMetricsTask(getContext(), 1)
+                .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                        String.valueOf(CalculateMetrics.getCalculatedGeneralWat()),
+                        String.valueOf(CalculateMetrics.getCalculatedTAs()),
+                        String.valueOf(CalculateMetrics.getNumberOfRulesVerified()));
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override

@@ -2,6 +2,8 @@ package great.android.cmu.ubiapp.rules.flood_rules;
 
 import android.content.Context;
 
+import java.util.Date;
+
 import evaluators.Assignment;
 import evaluators.EvaluationException;
 import great.android.cmu.ubiapp.adaptations.Temp22Adapt;
@@ -12,12 +14,7 @@ public class Temp22Rule extends Filter {
 
     float detectedTemperature;
     Temp22Adapt temp22Adapt;
-
-    long timeOfRuleStart;
-    long timeOfRuleEnd;
-
-    long timeOfAdaptStart;
-    long timeOfAdaptEnd;
+    long timeOfRule;
 
     public Temp22Rule (Context context){
         temp22Adapt = new Temp22Adapt(context);
@@ -34,24 +31,24 @@ public class Temp22Rule extends Filter {
 
     @Override
     public boolean evaluate() {
-        timeOfRuleStart = System.currentTimeMillis();
-        if (detectedTemperature==22.0){
+        long timeOfRuleStart = new Date().getTime();
+        if (detectedTemperature == 22.0){
             CalculateMetrics.setNumberOfRulesVerified();
             execute();
-            timeOfRuleEnd = System.currentTimeMillis();
+            this.timeOfRule = new Date().getTime() - timeOfRuleStart;
             return true;
         } else{
-            timeOfRuleEnd = System.currentTimeMillis();
+            this.timeOfRule = new Date().getTime() - timeOfRuleStart;
             return false;
         }
     }
 
     @Override
     public void execute() {
-        timeOfAdaptStart = System.currentTimeMillis();
+        long timeOfAdaptStart = new Date().getTime();
         temp22Adapt.executar();
-        timeOfAdaptEnd = System.currentTimeMillis();
-        CalculateMetrics.setGeneralWatTimes((timeOfRuleEnd-timeOfRuleStart),(timeOfAdaptEnd-timeOfAdaptStart));
+        long timeOfAdapt = new Date().getTime() - timeOfAdaptStart;
+        CalculateMetrics.setGeneralWatTimes(this.timeOfRule, timeOfAdapt);
     }
 
     @Override

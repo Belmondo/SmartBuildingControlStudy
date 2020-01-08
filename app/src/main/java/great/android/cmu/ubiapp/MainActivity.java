@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         Manifest.permission.ACCESS_WIFI_STATE
     };
 
-
     Batt50Rule batt50Rule;
     Hour12Rule hour12Rule;
     Hour18Rule hour18Rule;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     Temp22Rule temp22Rule;
     Temp30Rule temp30Rule;
 
-//    Intent intent  = new Intent("Context_Manager");
+    // Intent intent  = new Intent("Context_Manager");
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         if(myLocation == null){
             myLocation = MainActivity.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
+
         // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
@@ -108,10 +108,9 @@ public class MainActivity extends AppCompatActivity {
             public void onProviderEnabled(String provider) {}
             public void onProviderDisabled(String provider) {}
         };
+
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-
 
         batt50Rule = new Batt50Rule(getApplicationContext());
         hour12Rule = new Hour12Rule(getApplicationContext());
@@ -126,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
         MainWorkflow.receive(temp14Rule);
         MainWorkflow.receive(temp22Rule);
         MainWorkflow.receive(temp30Rule);
-//
-//
-//        startService(intent);
+        // startService(intent);
 
         Async_Context_Manager.startContextManager(getApplicationContext());
     }

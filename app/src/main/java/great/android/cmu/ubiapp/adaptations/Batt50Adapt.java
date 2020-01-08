@@ -33,6 +33,7 @@ public class Batt50Adapt extends Task2 {
     public void executar() {
         timeOfStart = System.currentTimeMillis();
         //Toast.makeText(received_context, "Nível de bateria baixo", Toast.LENGTH_LONG).show();
+        for(int i = 0; i < 1000; i++){}
         timeOfEnd = System.currentTimeMillis();
 
         CalculateMetrics.setTATimes(CalculateMetrics.calculateExecutionTime(timeOfStart, timeOfEnd));
